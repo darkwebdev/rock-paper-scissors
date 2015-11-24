@@ -1,67 +1,26 @@
 'use strict';
 
-const expect = require('chai').expect;
-const doesFirstWin = {
-    rock: {
-        paper: false,
-        scissors: true
-    },
-    paper: {
-        rock: true,
-        scissors: false
-    },
-    scissors: {
-        rock: false,
-        paper: true
-    }
-};
-const things = Object.keys(doesFirstWin);
+const chai = require('chai');
+const expect = chai.expect;
+const sinon = require('sinon');
+chai.use(require('sinon-chai'));
+
+const React = require('react');
+
+const Store = require('../src/Store');
+const rules = require('../src/rules');
+
+const shapes = Object.keys(rules.winner);
+var store;
+
+const ViewCtrl = require('../src/ViewCtrl');
+
+var viewCtrl;
 
 describe('Rock-paper-scissors', () => {
-    describe('game logic', () => {
-        context('Rock vs Paper', () => {
-            it('Paper wins', () => {
-                expect(doesFirstWin.rock.paper).to.be.false;
-                expect(doesFirstWin.paper.rock).to.be.true;
-            });
-        });
-        context('Rock vs Scissors', () => {
-            it('Rock wins', () => {
-                expect(doesFirstWin.rock.scissors).to.be.true;
-                expect(doesFirstWin.scissors.rock).to.be.false;
-            });
-        });
-        context('Paper vs Scissors', () => {
-            it('Scissors win', () => {
-                expect(doesFirstWin.paper.scissors).to.be.false;
-                expect(doesFirstWin.scissors.paper).to.be.true;
-            });
-        });
-        context('Same vs Same', () => {
-            it('Stalemate', () => {
-                expect(doesFirstWin.rock.rock).to.be.undefined;
-                expect(doesFirstWin.paper.paper).to.be.undefined;
-                expect(doesFirstWin.scissors.scissors).to.be.undefined;
-            });
-        });
-    });
-    describe('things generator', () => {
-        things.forEach((thing, i) => {
-            it('should return ' + thing, () => {
-                const getRandomElem = (arr, randomFn) => arr[randomFn(arr.length)];
-                const fakeRandom = () => i;
-
-                expect(things.indexOf(getRandomElem(things, fakeRandom))).to.equal(i);
-            });
-        });
-    });
-    describe('random number generator', () => {
-        it('should return integers within range', () => {
-            const getRandomIntExcluding = max => Math.round(Math.random() * max);
-
-            for (let i=0; i<100; i++) {
-                expect(getRandomIntExcluding(3)).to.be.within(0, 3);
-            }
-        });
+    beforeEach(() => {
+        store = Store();
+        viewCtrl = React.createElement(ViewCtrl, { store: store });
     });
 });
+
