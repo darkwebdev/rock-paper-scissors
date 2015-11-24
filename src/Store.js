@@ -1,21 +1,29 @@
 const rules = require('./rules');
+const shapes = Object.keys(rules.winner);
 
 module.exports = () => {
     'use strict';
 
-    let state = {};
+    var state = {};
+
+    const getRandomIntExcluding = max => Math.round(Math.random() * max);
+    const getRandomElem = (arr, randomFn) =>
+        arr[(randomFn || getRandomIntExcluding)(arr.length)];
 
     return {
-        selectThings: (thing1, thing2) => {
+        selectShapes: (shape1, shape2) => {
+            shape2 = shape2 || getRandomElem(shapes);
             state = {
-                thing1: thing1,
-                thing2: thing2,
-                winner: rules.winner[thing1][thing2]
+                shape1: shape1,
+                shape2: shape2,
+                winner: rules.winner[shape1][shape2]
             };
         },
-        getRandomElem: (arr, randomFn) => arr[randomFn(arr.length)],
-        getRandomIntExcluding: max => Math.round(Math.random() * max),
+        getRandomElem: getRandomElem,
+        getRandomIntExcluding: getRandomIntExcluding,
 
-        getState: () => state
+        getState: () => {
+            return state;
+        }
     };
 };

@@ -5,7 +5,7 @@ const expect = require('chai').expect;
 const Store = require('../src/Store');
 const rules = require('../src/rules');
 
-const things = Object.keys(rules.winner);
+const shapes = Object.keys(rules.winner);
 var store;
 
 describe('Store', () => {
@@ -15,46 +15,46 @@ describe('Store', () => {
     it('should return proper state', () => {
         [
             {
-                thing1: 'rock',
-                thing2: 'paper',
+                shape1: 'rock',
+                shape2: 'paper',
                 winner: 2
             },
             {
-                thing1: 'rock',
-                thing2: 'scissors',
+                shape1: 'rock',
+                shape2: 'scissors',
                 winner: 1
             },
             {
-                thing1: 'paper',
-                thing2: 'scissors',
+                shape1: 'paper',
+                shape2: 'scissors',
                 winner: 2
             },
             {
-                thing1: 'rock',
-                thing2: 'rock',
+                shape1: 'rock',
+                shape2: 'rock',
                 winner: undefined
             }
         ].forEach(testParams => {
             const expectedState = {
-                thing1: testParams.thing1,
-                thing2: testParams.thing2,
+                shape1: testParams.shape1,
+                shape2: testParams.shape2,
                 winner: testParams.winner
             };
-            store.selectThings(testParams.thing1, testParams.thing2);
+            store.selectShapes(testParams.shape1, testParams.shape2);
 
             expect(store.getState()).to.deep.equal(expectedState);
         });
     });
 
-    describe('things generator', () => {
+    describe('shape generator', () => {
         beforeEach(() => {
             store = Store();
         });
-        things.forEach((thing, i) => {
-            it('should return ' + thing, () => {
+        shapes.forEach((shape, i) => {
+            it('should return ' + shape, () => {
                 const fakeRandom = () => i;
 
-                expect(things.indexOf(store.getRandomElem(things, fakeRandom))).to.equal(i);
+                expect(shapes.indexOf(store.getRandomElem(shapes, fakeRandom))).to.equal(i);
             });
         });
     });
