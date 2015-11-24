@@ -24,14 +24,14 @@ describe('Rock-paper-scissors', () => {
         });
     });
     context('Rock vs Scissors', () => {
-        it('Rocks wins', () => {
+        it('Rock wins', () => {
             expect(doesFirstWin.rock.scissors).to.be.true;
             expect(doesFirstWin.scissors.rock).to.be.false;
         });
     });
 
     context('Paper vs Scissors', () => {
-        it('Rocks wins', () => {
+        it('Scissors win', () => {
             expect(doesFirstWin.paper.scissors).to.be.false;
             expect(doesFirstWin.scissors.paper).to.be.true;
         });
