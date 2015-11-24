@@ -14,16 +14,13 @@ const shapes = Object.keys(rules.winner);
 var store;
 var viewCtrl;
 
-const getOutput = function (comp) {
+const getRend = comp => {
     const rend = TestUtils.createRenderer();
     rend.render(comp);
-    return rend.getRenderOutput();
+    return rend;
 };
-const getInstance = function (comp) {
-    const rend = TestUtils.createRenderer();
-    rend.render(comp);
-    return rend._instance._instance;
-};
+const getOutput = comp => getRend(comp).getRenderOutput();
+const getInstance = comp => getRend(comp)._instance._instance;
 
 describe('View', () => {
     beforeEach(() => {
@@ -35,16 +32,32 @@ describe('View', () => {
 
         shapeList.forEach((shape, i) => {
             expect(shape.props.type).to.equal(shapes[i]);
-        })
+        });
     });
-    context('on select', () => {
-        it('should show who won', () => {
-            const shapesList = getOutput(viewCtrl).props.children[2];
+    shapes.forEach((shape, i) => {
+        context('on select ' + shape, () => {
+            it('should show who\'s won', () => {
+                const shapesList = getOutput(viewCtrl).props.children[2];
 
-            shapesList[0].props.onSelect();
+                expect(getInstance(viewCtrl).state).not.to.have.property('winner');
+                shapesList[i].props.onSelect();
 
-            expect(store.getState().winner).to.be.within(0, 2);
-        })
+                expect(getInstance(viewCtrl).state).to.have.property('winner');
+            });
+            it('should show opponent\'s Shape', () => {
+                const children = getOutput(viewCtrl).props.children;
+                const opShape = children[1];
+                const shapesList = children[2];
+
+                expect(opShape.props.type).not.to.exist;
+
+                shapesList[i].props.onSelect();
+
+                const revealedOpShape = getOutput(viewCtrl).props.children[1];
+
+                expect(revealedOpShape.props.type).to.exist;
+            });
+        });
     })
 });
 
