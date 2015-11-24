@@ -37,6 +37,13 @@ describe('Rock-paper-scissors', () => {
                 expect(doesFirstWin.scissors.paper).to.be.true;
             });
         });
+        context('Same vs Same', () => {
+            it('Stalemate', () => {
+                expect(doesFirstWin.rock.rock).to.be.undefined;
+                expect(doesFirstWin.paper.paper).to.be.undefined;
+                expect(doesFirstWin.scissors.scissors).to.be.undefined;
+            });
+        });
     });
     describe('things generator', () => {
         things.forEach((thing, i) => {
