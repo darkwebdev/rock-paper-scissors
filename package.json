@@ -7,14 +7,18 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "npm run lint && ./node_modules/.bin/mocha",
+    "lint": "./node_modules/.bin/eslint src test"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "babel": "^6.1.18",
     "babel-core": "^6.2.1",
+    "babel-eslint": "^4.1.6",
     "chai": "^3.4.1",
+    "eslint": "^1.10.1",
+    "eslint-plugin-react": "^3.10.0",
     "mocha": "^2.3.4"
   }
 }
