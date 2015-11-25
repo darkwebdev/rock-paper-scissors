@@ -61,7 +61,7 @@ describe('Store', () => {
     describe('random number generator', () => {
         it('should return integers within range', () => {
             for (let i=0; i<100; i++) {
-                expect(store.getRandomIntExcluding(3)).to.be.within(0, 3);
+                expect(store.getRandomIntExcluding(3)).to.be.within(0, 2);
             }
         });
     });

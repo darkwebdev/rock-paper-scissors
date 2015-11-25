@@ -6,7 +6,7 @@ module.exports = () => {
 
     var state = {};
 
-    const getRandomIntExcluding = max => Math.round(Math.random() * max);
+    const getRandomIntExcluding = max => Math.floor(Math.random() * max);
     const getRandomElem = (arr, randomFn) =>
         arr[(randomFn || getRandomIntExcluding)(arr.length)];
 
