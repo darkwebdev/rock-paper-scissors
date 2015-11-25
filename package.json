@@ -8,7 +8,10 @@
   },
   "scripts": {
     "test": "npm run lint && ./node_modules/.bin/mocha",
-    "lint": "./node_modules/.bin/eslint src test"
+    "lint": "./node_modules/.bin/eslint src test",
+    "build": "./node_modules/.bin/browserify -t babelify -g uglifyify index.js -o index.min.js",
+    "watch": "./node_modules/.bin/watchify -t babelify index.js -o index.min.js",
+    "server": "./node_modules/.bin/http-server ."
   },
   "author": "",
   "license": "ISC",
@@ -21,11 +24,15 @@
     "eslint-plugin-react": "^3.10.0",
     "mocha": "^2.3.4",
     "react-addons-test-utils": "^0.14.3",
-    "sinon": "^1.17.2",
-    "sinon-chai": "^2.8.0"
+    "watchify": "^3.6.1"
   },
   "dependencies": {
     "babel-plugin-transform-react-jsx": "^6.2.0",
-    "react": "^0.14.3"
+    "babelify": "^7.2.0",
+    "browserify": "^12.0.1",
+    "http-server": "^0.8.5",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "uglifyify": "^3.0.1"
   }
 }
