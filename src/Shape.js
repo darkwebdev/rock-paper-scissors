@@ -6,6 +6,6 @@ module.exports = React.createClass({
             <div className={ 'shape shape-' + this.props.type } onClick={ this.props.onSelect }>
                 { this.props.type }
             </div>
-        )
+        );
     }
 });
