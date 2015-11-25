@@ -26,8 +26,10 @@ module.exports = React.createClass({
             onChange();
         };
         const onSelect = shape => {
-            store.selectShapes(shape);
-            onChange();
+            if (!gameOver) {
+                store.selectShapes(shape);
+                onChange();
+            }
         };
         return (
             <div className="board">
