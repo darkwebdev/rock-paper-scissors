@@ -86,8 +86,8 @@ describe('View', () => {
             button.props.onClick();
 
             expect(getInstance(viewCtrl).state).not.to.have.property('winner');
-        })
-    })
+        });
+    });
 
 });
 
