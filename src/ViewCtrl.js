@@ -35,13 +35,19 @@ module.exports = React.createClass({
                     <h1>{ headerMap[this.state.winner] }</h1>
                 </header>
 
-                <Shape type={ this.state.shape2 || 'unknown' } />
+                <section className="opponent">
+                    <Shape type={ this.state.shape2 || '?' } />
+                </section>
 
-                {
-                    shapes.map(shape => (<Shape type={ shape } onSelect={ () => onSelect(shape) } />))
-                }
+                <section className="player">
+                    {
+                        shapes.map(shape => (<Shape type={ shape } onSelect={ () => onSelect(shape) } />))
+                    }
+                </section>
 
-                <button className={ 'btn-restart' + (gameOver ? 'btn-visible' : '') } onClick={ onRestart }>Play again?</button>
+                <footer>
+                    <button className={ 'btn-restart' + (gameOver ? ' btn-visible' : '') } onClick={ onRestart }>Play again?</button>
+                </footer>
             </div>
         );
     }
