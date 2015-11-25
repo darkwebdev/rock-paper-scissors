@@ -32,7 +32,7 @@ describe('Store', () => {
             {
                 shape1: 'rock',
                 shape2: 'rock',
-                winner: undefined
+                winner: 0
             }
         ].forEach(testParams => {
             const expectedState = {

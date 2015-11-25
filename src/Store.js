@@ -16,7 +16,7 @@ module.exports = () => {
             state = {
                 shape1: shape1,
                 shape2: shape2,
-                winner: rules.winner[shape1][shape2]
+                winner: rules.winner[shape1][shape2] || 0
             };
         },
         getRandomElem: getRandomElem,
