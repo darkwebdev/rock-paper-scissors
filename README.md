@@ -16,3 +16,9 @@ npm test
 ```
 npm run build
 ```
+# run
+just open index.html in your browser
+# develop
+```
+npm run watch
+```
