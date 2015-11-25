@@ -22,6 +22,10 @@ module.exports = () => {
         getRandomElem: getRandomElem,
         getRandomIntExcluding: getRandomIntExcluding,
 
+        restart: () => {
+            state = {};
+        },
+
         getState: () => {
             return state;
         }

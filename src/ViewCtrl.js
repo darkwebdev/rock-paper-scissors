@@ -1,3 +1,5 @@
+'use strict';
+
 const React = require('react');
 const Shape = require('./Shape');
 const rules = require('./rules');
@@ -8,6 +10,7 @@ module.exports = React.createClass({
         return this.props.store.getState();
     },
     render: function() {
+        const store = this.props.store;
         const gameOver = this.state.winner !== undefined;
         const headerMap = {
             undefined: 'Choose your figure',
@@ -15,20 +18,30 @@ module.exports = React.createClass({
             1: 'You win!',
             2: 'You lose =('
         };
-        const onSelect = shape => this.props.store.selectShapes(shape);
+        const onChange = () => {
+            this.replaceState(store.getState());
+        };
+        const onRestart = () => {
+            store.restart();
+            onChange();
+        };
+        const onSelect = shape => {
+            store.selectShapes(shape);
+            onChange();
+        };
         return (
-            <div class="board">
+            <div className="board">
                 <header>
                     <h1>{ headerMap[this.state.winner] }</h1>
                 </header>
 
-                <Shape type={ this.state.shape2 } />
+                <Shape type={ this.state.shape2 || 'unknown' } />
 
                 {
                     shapes.map(shape => (<Shape type={ shape } onSelect={ () => onSelect(shape) } />))
                 }
 
-                <button className={ 'btn-restart' + (gameOver ? 'btn-visible' : '') }></button>
+                <button className={ 'btn-restart' + (gameOver ? 'btn-visible' : '') } onClick={ onRestart }>Play again?</button>
             </div>
         );
     }

@@ -56,13 +56,13 @@ describe('View', () => {
                 const opShape = views[1];
                 const shapesList = views[2];
 
-                expect(opShape.props.type).not.to.exist;
+                expect(opShape.props.type).to.equal('unknown');
 
                 shapesList[i].props.onSelect();
 
                 const revealedOpShape = getOutput(viewCtrl).props.children[1];
 
-                expect(revealedOpShape.props.type).to.exist;
+                expect(revealedOpShape.props.type).not.to.equal('unknown');
             });
             it('should show Restart Button', () => {
                 const shapesList = views[2];
@@ -77,7 +77,16 @@ describe('View', () => {
         });
     });
 
+    context('on Restart Button click', () => {
+        it('should restart the game', () => {
+            views = getOutput(viewCtrl).props.children;
 
+            const button = views[3];
+            button.props.onClick();
+
+            expect(getInstance(viewCtrl).state).not.to.have.property('winner');
+        })
+    })
 
 });
 
