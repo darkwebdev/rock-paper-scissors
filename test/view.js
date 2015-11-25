@@ -13,6 +13,7 @@ const ViewCtrl = require('../src/ViewCtrl');
 const shapes = Object.keys(rules.winner);
 var store;
 var viewCtrl;
+var views;
 
 const getRend = comp => {
     const rend = TestUtils.createRenderer();
@@ -27,17 +28,24 @@ describe('View', () => {
         store = Store();
         viewCtrl = React.createElement(ViewCtrl, { store: store });
     });
-    it('should show three Shapes to choose from', () => {
-        const shapeList = getOutput(viewCtrl).props.children[2];
+    context('by default', () => {
+        it('should show three Shapes to choose from', () => {
+            const shapeList = getOutput(viewCtrl).props.children[2];
 
-        shapeList.forEach((shape, i) => {
-            expect(shape.props.type).to.equal(shapes[i]);
+            shapeList.forEach((shape, i) => {
+                expect(shape.props.type).to.equal(shapes[i]);
+            });
         });
     });
+
     shapes.forEach((shape, i) => {
         context('on select ' + shape, () => {
+            beforeEach(() => {
+                views = getOutput(viewCtrl).props.children;
+            });
+
             it('should show who\'s won', () => {
-                const shapesList = getOutput(viewCtrl).props.children[2];
+                const shapesList = views[2];
 
                 expect(getInstance(viewCtrl).state).not.to.have.property('winner');
                 shapesList[i].props.onSelect();
@@ -45,9 +53,8 @@ describe('View', () => {
                 expect(getInstance(viewCtrl).state).to.have.property('winner');
             });
             it('should show opponent\'s Shape', () => {
-                const children = getOutput(viewCtrl).props.children;
-                const opShape = children[1];
-                const shapesList = children[2];
+                const opShape = views[1];
+                const shapesList = views[2];
 
                 expect(opShape.props.type).not.to.exist;
 
@@ -57,7 +64,20 @@ describe('View', () => {
 
                 expect(revealedOpShape.props.type).to.exist;
             });
+            it('should show Restart Button', () => {
+                const shapesList = views[2];
+                const button = views[3];
+
+                expect(button.props.className).not.to.contain('btn-visible');
+                shapesList[i].props.onSelect();
+
+                const revealedButton = getOutput(viewCtrl).props.children[3];
+                expect(revealedButton.props.className).to.contain('btn-visible');
+            });
         });
-    })
+    });
+
+
+
 });
 

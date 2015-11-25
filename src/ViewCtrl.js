@@ -8,6 +8,7 @@ module.exports = React.createClass({
         return this.props.store.getState();
     },
     render: function() {
+        const gameOver = this.state.winner !== undefined;
         const headerMap = {
             undefined: 'Choose your figure',
             0: 'Stalemate!',
@@ -26,6 +27,8 @@ module.exports = React.createClass({
                 {
                     shapes.map(shape => (<Shape type={ shape } onSelect={ () => onSelect(shape) } />))
                 }
+
+                <button className={ 'btn-restart' + (gameOver ? 'btn-visible' : '') }></button>
             </div>
         );
     }
